@@ -6,12 +6,20 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/config.hpp>
 
+#include <gtest/gtest.h>
+
 using namespace std;
 namespace bpo=boost::program_options;
 
 static constexpr auto dms_default = "9999999";
 
-int main()
+int main(int argc, char** argv)
+{
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+
+TEST(test, double_free)
 {
     string filename = "test.txt";
     ofstream out_file(filename);
@@ -30,5 +38,6 @@ int main()
 
 
     printf("HERE %s\n", gotten_dms_path.c_str());
-    return 0;
+
+    ASSERT_EQ(1, 1);
 }
